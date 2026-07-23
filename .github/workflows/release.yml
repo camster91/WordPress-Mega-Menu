@@ -1,0 +1,71 @@
+name: Build & Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'mega-menu-plugin.php'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Extract version
+        id: version
+        run: |
+          VERSION=$(grep -oP "Version:\s+\K[0-9]+\.[0-9]+\.[0-9]+" mega-menu-plugin.php)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Detected version: $VERSION"
+
+      - name: Check if release exists
+        id: check_release
+        run: |
+          TAG="v${{ steps.version.outputs.version }}"
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/releases/tags/$TAG")
+          echo "status=$STATUS" >> "$GITHUB_OUTPUT"
+          if [ "$STATUS" = "200" ]; then
+            echo "Release $TAG already exists. Skipping."
+          else
+            echo "Release $TAG does not exist. Will create."
+          fi
+
+      - name: Build plugin zip
+        if: steps.check_release.outputs.status != '200'
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          ZIP_NAME="easy-mega-menu-${VERSION}.zip"
+          # Create zip from current directory, excluding .git and .github
+          zip -r "$ZIP_NAME" . \
+            -x ".git/*" \
+            -x ".github/*" \
+            -x ".gitignore"
+          echo "zip_name=$ZIP_NAME" >> "$GITHUB_OUTPUT"
+        id: build_zip
+
+      - name: Create GitHub Release
+        if: steps.check_release.outputs.status != '200'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: Easy Mega Menu v${{ steps.version.outputs.version }}
+          body: |
+            Auto-generated release for Easy Mega Menu v${{ steps.version.outputs.version }}.
+
+            ## Install
+            1. Download `easy-mega-menu-v${{ steps.version.outputs.version }}.zip`
+            2. In WordPress Admin → Plugins → Add New → Upload Plugin
+            3. Activate **Easy Mega Menu**
+          files: easy-mega-menu-${{ steps.version.outputs.version }}.zip
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
