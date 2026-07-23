@@ -1,0 +1,35 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Node / build artifacts
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Composer
+vendor/
+composer.lock
+
+# Build output
+dist/
+build/
+*.zip
+
+# Tests / coverage
+.phpunit.result.cache
+phpunit.xml
+phpunit.xml.dist
+coverage/
+
+# WordPress dev
+wp-content/
+
+# Logs
+*.log
