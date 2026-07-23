@@ -34,19 +34,24 @@ class EMM_Block {
 	}
 
 	/**
-	 * Register the block type from the build directory.
+	 * Register the block type from the build or src directory.
 	 */
 	public function register_block() {
 		$build_dir = EMM_PLUGIN_DIR . 'build/blocks/mega-menu';
+		$src_dir   = EMM_PLUGIN_DIR . 'src/blocks/mega-menu';
 
-		if ( ! file_exists( $build_dir . '/block.json' ) ) {
-			// Build output missing — block unavailable until `npm run build`.
-			return;
+		if ( file_exists( $build_dir . '/block.json' ) ) {
+			register_block_type( $build_dir, array(
+				'render_callback' => array( $this, 'render_block' ),
+			) );
+		} elseif ( file_exists( $src_dir . '/block.json' ) ) {
+			// Development fallback — block editor script won't work without build,
+			// but the server-side render callback is available.
+			register_block_type( $src_dir, array(
+				'render_callback' => array( $this, 'render_block' ),
+			) );
 		}
-
-		register_block_type( $build_dir, array(
-			'render_callback' => array( $this, 'render_block' ),
-		) );
+		// If neither exists, the block is silently unavailable.
 	}
 
 	/**
