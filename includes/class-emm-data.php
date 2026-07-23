@@ -528,9 +528,9 @@ class EMM_Data {
 										'id'    => 'spend_col1',
 										'title' => '',
 										'links' => array(
-											array_merge( array( 'id' => 'sp1', 'label' => 'Expense', 'url' => '/sutiexpense/' ), $empty ),
+											array_merge( array( 'id' => 'sp1', 'label' => 'Expense', 'url' => '/expense-management/' ), $empty ),
 											array_merge( array( 'id' => 'sp2', 'label' => 'Accounts Payable', 'url' => '/accounts-payable-software/' ), $empty ),
-											array_merge( array( 'id' => 'sp3', 'label' => 'Procurement', 'url' => '/sutiprocure/' ), $empty ),
+											array_merge( array( 'id' => 'sp3', 'label' => 'Procurement', 'url' => '/procurement/' ), $empty ),
 										),
 									),
 									array(
@@ -538,8 +538,8 @@ class EMM_Data {
 										'title' => '',
 										'links' => array(
 											array_merge( array( 'id' => 'sp4', 'label' => 'Business Travel', 'url' => '/business-travel/' ), $empty ),
-											array_merge( array( 'id' => 'sp5', 'label' => 'Invoicing', 'url' => '/sutiinvoice/' ), $empty ),
-											array_merge( array( 'id' => 'sp6', 'label' => 'Asset Management', 'url' => '/sutiams/' ), $empty ),
+											array_merge( array( 'id' => 'sp5', 'label' => 'Invoicing', 'url' => '/invoicing/' ), $empty ),
+											array_merge( array( 'id' => 'sp6', 'label' => 'Asset Management', 'url' => '/asset-management/' ), $empty ),
 										),
 									),
 									array(
@@ -547,8 +547,8 @@ class EMM_Data {
 										'title' => '',
 										'links' => array(
 											array_merge( array( 'id' => 'sp7', 'label' => 'Inventory Management', 'url' => '/inventory-management-software/' ), $empty ),
-											array_merge( array( 'id' => 'sp8', 'label' => 'Supplier Relationship Management', 'url' => '/sutisrm/' ), $empty ),
-											array_merge( array( 'id' => 'sp9', 'label' => 'Data Analytics', 'url' => '/sutidanalytics/' ), $empty ),
+											array_merge( array( 'id' => 'sp8', 'label' => 'Supplier Relationship Management', 'url' => '/supplier-management/' ), $empty ),
+											array_merge( array( 'id' => 'sp9', 'label' => 'Data Analytics', 'url' => '/analytics/' ), $empty ),
 										),
 									),
 								),
@@ -567,15 +567,15 @@ class EMM_Data {
 										'title' => '',
 										'links' => array(
 											array_merge( array( 'id' => 'sg1', 'label' => 'Electronic Signature', 'url' => '/e-signature-software' ), $empty ),
-											array_merge( array( 'id' => 'sg2', 'label' => 'Contract Lifecycle Management', 'url' => '/suticlm/' ), $empty ),
+											array_merge( array( 'id' => 'sg2', 'label' => 'Contract Lifecycle Management', 'url' => '/contract-lifecycle/' ), $empty ),
 										),
 									),
 									array(
 										'id'    => 'sign_col2',
 										'title' => '',
 										'links' => array(
-											array_merge( array( 'id' => 'sg3', 'label' => 'Document Management', 'url' => '/sutidms/' ), $empty ),
-											array_merge( array( 'id' => 'sg4', 'label' => 'Data Analytics', 'url' => '/sutidanalytics/' ), $empty ),
+											array_merge( array( 'id' => 'sg3', 'label' => 'Document Management', 'url' => '/document-management/' ), $empty ),
+											array_merge( array( 'id' => 'sg4', 'label' => 'Data Analytics', 'url' => '/analytics/' ), $empty ),
 										),
 									),
 								),
@@ -644,15 +644,15 @@ class EMM_Data {
 										'title' => '',
 										'links' => array(
 											array_merge( array( 'id' => 'cr1', 'label' => 'Help Desk', 'url' => '/helpdesk-software/' ), $empty ),
-											array_merge( array( 'id' => 'cr2', 'label' => 'Property Management', 'url' => '/sutipms/' ), $empty ),
+											array_merge( array( 'id' => 'cr2', 'label' => 'Property Management', 'url' => '/property-management/' ), $empty ),
 										),
 									),
 									array(
 										'id'    => 'crm_col2',
 										'title' => '',
 										'links' => array(
-											array_merge( array( 'id' => 'cr3', 'label' => 'Survey', 'url' => 'http://www.sutisurvey.com' ), $empty ),
-											array_merge( array( 'id' => 'cr4', 'label' => 'Data Analytics', 'url' => '/sutidanalytics/' ), $empty ),
+											array_merge( array( 'id' => 'cr3', 'label' => 'Survey', 'url' => 'https://www.example.com/survey/' ), $empty ),
+											array_merge( array( 'id' => 'cr4', 'label' => 'Data Analytics', 'url' => '/analytics/' ), $empty ),
 										),
 									),
 								),
@@ -682,7 +682,7 @@ class EMM_Data {
 						'columns'    => 1,
 						'categories' => array(),
 						'links'      => array(
-							array( 'id' => 're1', 'label' => 'Blog', 'url' => 'https://www.sutisoft.com/blog-home/', 'icon' => 'document', 'icon_url' => '' ),
+							array( 'id' => 're1', 'label' => 'Blog', 'url' => 'https://www.example.com/blog/', 'icon' => 'document', 'icon_url' => '' ),
 							array( 'id' => 're2', 'label' => 'Press Releases', 'url' => '/latest-news.html', 'icon' => 'clipboard', 'icon_url' => '' ),
 							array( 'id' => 're3', 'label' => 'White Papers', 'url' => '/whitepapers.html', 'icon' => 'document', 'icon_url' => '' ),
 						),
