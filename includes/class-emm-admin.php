@@ -128,7 +128,6 @@ class EMM_Admin {
 			require_once ABSPATH . WPINC . '/class-wp-editor.php';
 		}
 		\_WP_Editors::wp_link_dialog();
-				\_WP_Editors::wp_link_dialog(); // Leading backslash = global class ref (PHP 7.4+).="emm-wplink-textarea" style="display:none;" aria-hidden="true"></textarea>';
 	}
 
 	/**
