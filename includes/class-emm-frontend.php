@@ -198,18 +198,17 @@ class EMM_Frontend {
 		?>
 		<li class="<?php echo esc_attr( $classes ); ?>">
 			<?php if ( $is_mega ) : ?>
-				<a
-					href="<?php echo esc_url( ! empty( $item['url'] ) ? $item['url'] : '#' ); ?>"
+				<button
+					type="button"
 					class="emm-nav__link emm-nav__link--toggle"
 					aria-expanded="false"
 					aria-haspopup="true"
 					aria-controls="emm-panel-<?php echo $uid; ?>"
 					data-emm-mega-trigger
-					role="button"
 				>
 					<?php echo esc_html( $item['label'] ); ?>
 					<svg class="emm-chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5L6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-				</a>
+				</button>
 				<?php echo $this->render_mega_panel( $item, $settings ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			<?php else : ?>
 				<a class="emm-nav__link" href="<?php echo esc_url( $item['url'] ?: '#' ); ?>">

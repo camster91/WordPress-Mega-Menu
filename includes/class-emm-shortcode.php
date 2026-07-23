@@ -58,11 +58,22 @@ class EMM_Shortcode {
 }
 
 /**
+ * Theme helper: return a mega menu HTML string by ID.
+ *
+ * @param string $menu_id Menu ID.
+ * @param array  $args    Optional args.
+ * @return string
+ */
+function emm_get_menu( $menu_id, $args = array() ) {
+	return EMM_Frontend::instance()->render( $menu_id, $args );
+}
+
+/**
  * Theme helper: echo a mega menu by ID.
  *
  * @param string $menu_id Menu ID.
  * @param array  $args    Optional args.
  */
 function emm_render_menu( $menu_id, $args = array() ) {
-	echo EMM_Frontend::instance()->render( $menu_id, $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo emm_get_menu( $menu_id, $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
