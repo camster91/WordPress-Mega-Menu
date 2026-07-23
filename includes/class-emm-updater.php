@@ -34,6 +34,13 @@ class EMM_Updater {
 	private $check_interval = 43200; // 12 hours
 
 	/**
+	 * WordPress version the plugin is tested up to.
+	 *
+	 * @var string
+	 */
+	private $tested = '6.6';
+
+	/**
 	 * @return EMM_Updater
 	 */
 	public static function instance() {
@@ -79,7 +86,7 @@ class EMM_Updater {
 				'icons'         => array(),
 				'banners'       => array(),
 				'banners_rtl'   => array(),
-				'tested'        => '',
+				'tested'        => $this->tested,
 				'requires_php'  => '7.4',
 				'requires'      => '5.8',
 				'compatibility' => new stdClass(),
@@ -122,7 +129,7 @@ class EMM_Updater {
 			'version'       => $latest['version'],
 			'requires'      => '5.8',
 			'requires_php'  => '7.4',
-			'tested'        => get_bloginfo( 'version' ),
+			'tested'        => $this->tested,
 			'last_updated'  => $latest['published_at'] ?? gmdate( 'Y-m-d H:i:s' ),
 			'sections'      => array(
 				'description' => 'Create beautiful mega menus like corporate platforms menus — managed visually from the admin panel. No coding required.',
@@ -166,7 +173,7 @@ class EMM_Updater {
 		$package_url = '';
 		if ( ! empty( $body['assets'] ) && is_array( $body['assets'] ) ) {
 			foreach ( $body['assets'] as $asset ) {
-				if ( ! empty( $asset['browser_download_url'] ) ) {
+				if ( ! empty( $asset['browser_download_url'] ) && substr( $asset['name'], -4 ) === '.zip' ) {
 					$package_url = $asset['browser_download_url'];
 					break;
 				}
