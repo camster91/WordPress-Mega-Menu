@@ -3,7 +3,7 @@
  * Plugin Name: Easy Mega Menu
  * Plugin URI:  https://github.com/camster91/WordPress-Mega-Menu
  * Description: Create beautiful mega menus like corporate platforms menus — managed visually from the admin panel. No coding required.
- * Version:     1.2.5
+ * Version:     1.3.0
  * Author:      Cameron
  * Author URI:  https://github.com/camster91
  * License:     GPL-2.0-or-later
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'EMM_VERSION', '1.2.5' );
+define( 'EMM_VERSION', '1.3.0' );
 define( 'EMM_PLUGIN_FILE', __FILE__ );
 define( 'EMM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'EMM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -28,6 +28,7 @@ require_once EMM_PLUGIN_DIR . 'includes/class-emm-icons.php';
 require_once EMM_PLUGIN_DIR . 'includes/class-emm-admin.php';
 require_once EMM_PLUGIN_DIR . 'includes/class-emm-frontend.php';
 require_once EMM_PLUGIN_DIR . 'includes/class-emm-shortcode.php';
+require_once EMM_PLUGIN_DIR . 'includes/class-emm-block.php';
 
 if ( file_exists( EMM_PLUGIN_DIR . 'includes/class-emm-updater.php' ) ) {
 	require_once EMM_PLUGIN_DIR . 'includes/class-emm-updater.php';
@@ -62,6 +63,7 @@ function emm_init() {
 
 	EMM_Frontend::instance();
 	EMM_Shortcode::instance();
+	EMM_Block::instance();
 }
 add_action( 'plugins_loaded', 'emm_init' );
 
