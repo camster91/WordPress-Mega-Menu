@@ -28,7 +28,24 @@ require_once EMM_PLUGIN_DIR . 'includes/class-emm-icons.php';
 require_once EMM_PLUGIN_DIR . 'includes/class-emm-admin.php';
 require_once EMM_PLUGIN_DIR . 'includes/class-emm-frontend.php';
 require_once EMM_PLUGIN_DIR . 'includes/class-emm-shortcode.php';
-require_once EMM_PLUGIN_DIR . 'includes/class-emm-updater.php';
+
+if ( file_exists( EMM_PLUGIN_DIR . 'includes/class-emm-updater.php' ) ) {
+	require_once EMM_PLUGIN_DIR . 'includes/class-emm-updater.php';
+	add_action( 'plugins_loaded', array( 'EMM_Updater', 'instance' ), 11 );
+} else {
+	add_action( 'admin_notices', 'emm_updater_missing_notice' );
+}
+
+/**
+ * Admin notice when updater class is missing.
+ */
+function emm_updater_missing_notice() {
+	?>
+	<div class="notice notice-warning is-dismissible">
+		<p><?php esc_html_e( 'Easy Mega Menu updater is unavailable because class-emm-updater.php is missing.', 'easy-mega-menu' ); ?></p>
+	</div>
+	<?php
+}
 
 /* ==================================================================
    Bootstrap
@@ -47,6 +64,14 @@ function emm_init() {
 	EMM_Shortcode::instance();
 }
 add_action( 'plugins_loaded', 'emm_init' );
+
+/**
+ * Load plugin textdomain for translations.
+ */
+function emm_load_textdomain() {
+	load_plugin_textdomain( 'easy-mega-menu', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+}
+add_action( 'plugins_loaded', 'emm_load_textdomain', 5 );
 
 /* ==================================================================
    Activation
@@ -100,7 +125,20 @@ function emm_maybe_upgrade() {
 }
 
 /* ==================================================================
-   Auto-updater (GitHub releases)
+   Auto-updater (GitHub releases) + cache flush on plugin update
    ================================================================== */
 
-add_action( 'plugins_loaded', array( 'EMM_Updater', 'instance' ), 11 );
+add_action( 'upgrader_process_complete', 'emm_upgrade_completed', 10, 2 );
+function emm_upgrade_completed( $upgrader_object, $options ) {
+	if ( 'update' === $options['action'] && 'plugin' === $options['type'] ) {
+		if ( ! empty( $options['plugins'] ) && is_array( $options['plugins'] ) ) {
+			foreach ( $options['plugins'] as $plugin ) {
+				if ( plugin_basename( __FILE__ ) === $plugin ) {
+					delete_transient( 'emm_github_release' );
+					delete_transient( 'emm_plugin_info' );
+					break;
+				}
+			}
+		}
+	}
+}

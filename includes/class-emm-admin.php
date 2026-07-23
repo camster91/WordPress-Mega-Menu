@@ -163,7 +163,10 @@ class EMM_Admin {
 			wp_send_json_error( array( 'message' => 'Invalid data' ), 400 );
 		}
 
-		EMM_Data::instance()->save( $id, $data );
+		$saved = EMM_Data::instance()->save( $id, $data );
+		if ( ! $saved ) {
+			wp_send_json_error( array( 'message' => __( 'Database save failed.', 'easy-mega-menu' ) ), 500 );
+		}
 		wp_send_json_success( array( 'message' => 'saved' ) );
 	}
 
