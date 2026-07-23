@@ -9,6 +9,10 @@
  * @var WP_Block $block      Block instance.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( empty( $attributes['menuId'] ) ) {
 	return;
 }
