@@ -17,6 +17,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
       - name: Extract version
         id: version
         run: |
@@ -38,16 +44,26 @@ jobs:
             echo "Release $TAG does not exist. Will create."
           fi
 
+      - name: Install dependencies and build blocks
+        if: steps.check_release.outputs.status != '200'
+        run: |
+          npm ci
+          npm run build
+
       - name: Build plugin zip
         if: steps.check_release.outputs.status != '200'
         run: |
           VERSION="${{ steps.version.outputs.version }}"
           ZIP_NAME="easy-mega-menu-${VERSION}.zip"
-          # Create zip from current directory, excluding .git and .github
+          # Create zip from current directory, excluding dev files
           zip -r "$ZIP_NAME" . \
             -x ".git/*" \
             -x ".github/*" \
-            -x ".gitignore"
+            -x ".gitignore" \
+            -x "src/*" \
+            -x "package.json" \
+            -x "package-lock.json" \
+            -x "node_modules/*"
           echo "zip_name=$ZIP_NAME" >> "$GITHUB_OUTPUT"
         id: build_zip
 
