@@ -316,30 +316,6 @@ $menu['settings'] = wp_parse_args( $menu['settings'] ?? array(), EMM_Data::defau
 	</div>
 </div>
 
-<!-- Templates -->
-<script type="text/template" id="tmpl-emm-nav-item">
-	<li class="emm-nav-item-row" data-id="{{id}}">
-		<span class="emm-drag-handle" title="<?php esc_attr_e( 'Drag to reorder', 'easy-mega-menu' ); ?>">⋮⋮</span>
-		<div class="emm-nav-item-row__fields">
-			<input type="text" class="emm-nav-label" value="{{label}}" placeholder="<?php esc_attr_e( 'Label', 'easy-mega-menu' ); ?>" />
-			<span class="emm-wp-link">
-				<input type="text" class="emm-nav-url emm-url-field" value="{{url}}" placeholder="<?php esc_attr_e( 'Search or type URL', 'easy-mega-menu' ); ?>" {{#if isMega}}disabled{{/if}} />
-				<button type="button" class="button emm-pick-url" title="<?php esc_attr_e( 'Select / edit link', 'easy-mega-menu' ); ?>" data-emm-text-sel=".emm-nav-label" {{#if isMega}}disabled{{/if}}>
-					<span class="dashicons dashicons-admin-links" aria-hidden="true"></span>
-				</button>
-			</span>
-			<select class="emm-nav-type">
-				<option value="link" {{#unless isMega}}selected{{/unless}}><?php esc_html_e( 'Simple Link', 'easy-mega-menu' ); ?></option>
-				<option value="mega" {{#if isMega}}selected{{/if}}><?php esc_html_e( 'Mega Menu', 'easy-mega-menu' ); ?></option>
-			</select>
-		</div>
-		{{#if isMega}}
-		<button type="button" class="button button-small emm-edit-mega"><?php esc_html_e( 'Edit Mega Content', 'easy-mega-menu' ); ?></button>
-		{{/if}}
-		<button type="button" class="button-link-delete emm-remove-nav" title="<?php esc_attr_e( 'Remove', 'easy-mega-menu' ); ?>">&times;</button>
-	</li>
-</script>
-
 <div id="emm-icon-modal" class="emm-modal" hidden>
 	<div class="emm-modal__backdrop"></div>
 	<div class="emm-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="emm-icon-modal-title">
